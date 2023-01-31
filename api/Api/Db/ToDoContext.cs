@@ -15,17 +15,20 @@ namespace Api.Db
                 new()
                 {
                     Id = 1,
-                    Description = "Pick up groceries"
+                    Description = "Pick up groceries",
+                    DueDate = DateTime.UtcNow
                 },
                 new()
                 {
                     Id = 2,
-                    Description = "Go to bank"
+                    Description = "Go to bank",
+                    DueDate = DateTime.UtcNow
                 },
                 new()
                 {
                     Id = 3,
-                    Description = "Go to post office"
+                    Description = "Go to post office",
+                    DueDate = DateTime.UtcNow
                 }
             });
         }
