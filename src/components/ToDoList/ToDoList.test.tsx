@@ -26,7 +26,7 @@ describe("ToDoList", () => {
         const expectedNewItem = faker.lorem.word();
         jest.spyOn(toDoService, "getToDoList")
             .mockResolvedValueOnce([]) // initial load
-            .mockResolvedValueOnce([ { id: Math.random() * 100, description: expectedNewItem }]); // when component reloads
+            .mockResolvedValueOnce([ { id: Math.random() * 100, description: expectedNewItem, dueDate: faker.date.future()}]); // when component reloads
         jest.spyOn(toDoService, "addToDoItem").mockResolvedValue(new Response());
 
         // Act
@@ -183,7 +183,8 @@ export const createToDoItems = (numberToCreate: number = 3): ToDoItem[] => {
     for (let i = 0; i < numberToCreate; i++) {
         items.push({
             id: i,
-            description: faker.lorem.word()
+            description: faker.lorem.word(),
+            dueDate: faker.date.future()
         })
     }
 

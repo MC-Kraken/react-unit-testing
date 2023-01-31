@@ -21,3 +21,14 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+/.idea/.gitignore
+/api/.idea/.idea.Api/.idea/.gitignore
+/api/.idea/.idea.Api/.idea/.name
+/api/.idea/.idea.Api/.idea/encodings.xml
+/api/.idea/.idea.Api/.idea/indexLayout.xml
+/.idea/modules.xml
+/.idea/react-unit-testing.iml
+/api/Api/todo.db-shm
+/api/Api/todo.db-wal
+/.idea/vcs.xml
+/api/.idea/.idea.Api/.idea/vcs.xml

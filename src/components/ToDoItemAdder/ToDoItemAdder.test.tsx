@@ -58,7 +58,8 @@ export const createToDoItems = (numberToCreate: number = 3): ToDoItem[] => {
     for (let i = 0; i < numberToCreate; i++) {
         items.push({
             id: i,
-            description: faker.lorem.word()
+            description: faker.lorem.word(),
+            dueDate: faker.date.future()
         })
     }
 

@@ -9,10 +9,11 @@ export const getToDoList = async (): Promise<ToDoItem[]> => {
 }
 
 // TODO: return value?
-export const addToDoItem = async (item: string): Promise<Response> => {
+export const addToDoItem = async (item: string, date: Date | null): Promise<Response> => {
     return await fetch(baseUrl, {
         body: JSON.stringify({
-            description: item
+            description: item,
+            dueDate: date
         }),
         method: "POST",
         headers: {

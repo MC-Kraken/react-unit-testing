@@ -1,32 +1,34 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { addToDoItem } from "../../services/toDoService";
 import { ToDoItemAdderProps } from "./ToDoItemAdderProps";
+import { ToDoItemDatePicker } from "../ToDoItemDatePicker/ToDoItemDatePicker";
 
 export const ToDoItemAdder = ({ handleAdd, toDoList }: ToDoItemAdderProps) => {
-    const [newToDoItem, setNewToDoItem] = useState<string>("");
+    const [newToDoItemName, setNewToDoItemName] = useState<string>("");
+    const [newToDoItemDate, setNewToDoItemDate] = useState<Date | null>(null);
     const [shouldShowEmptyErrorText, setShouldShowEmptyErrorText] = useState<boolean>(false);
     const [shouldShowDuplicateErrorText, setShouldShowDuplicateErrorText] = useState<boolean>(false);
 
     const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         const newNameValue = e.currentTarget.value;
-        setNewToDoItem(newNameValue);
+        setNewToDoItemName(newNameValue);
     };
 
     const onAdd = () => {
-        if (newToDoItem === "") {
+        if (newToDoItemName === "") {
             setShouldShowEmptyErrorText(true);
             return;
         }
 
-        if (toDoList.find(i => i.description === newToDoItem)) {
+        if (toDoList.find(i => i.description === newToDoItemName)) {
             setShouldShowDuplicateErrorText(true);
             return;
         } else {
             setShouldShowDuplicateErrorText(false);
         }
 
-        addToDoItem(newToDoItem).then((response: Response) => {
+        addToDoItem(newToDoItemName, newToDoItemDate).then((response: Response) => {
             if (response.ok) {
                 handleAdd();
             }
@@ -34,16 +36,17 @@ export const ToDoItemAdder = ({ handleAdd, toDoList }: ToDoItemAdderProps) => {
     }
 
     useEffect(() => {
-        if (shouldShowEmptyErrorText && newToDoItem.length > 0) {
+        if (shouldShowEmptyErrorText && newToDoItemName.length > 0) {
             setShouldShowEmptyErrorText(false);
         }
-    }, [newToDoItem])
+    }, [newToDoItemName])
 
     return (
         <>
             {shouldShowEmptyErrorText && <p style={{ color: "red" }}>You must enter something</p>}
             {shouldShowDuplicateErrorText && <p style={{ color: "red" }}>You already have that on your list</p>}
             <input aria-label="todo-input" onChange={value => onNameChange(value)} /> {" "}
+            <ToDoItemDatePicker setNewToDoItemDate={setNewToDoItemDate}/>
             <button onClick={onAdd}>Add To-Do Item</button>
         </>);
 }
