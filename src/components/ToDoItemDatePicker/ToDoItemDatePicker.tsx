@@ -1,14 +1,16 @@
-import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-export const ToDoItemDatePicker = (setNewToDoItemDate: any) => {
-    const [startDate, setStartDate] = useState<Date | null>(new Date());
+interface ToDoItemDatePickerProps {
+    setNewToDoItemDate: (date: null | Date) => void,
+    newToDoItemDate: Date | null
+}
+
+export const ToDoItemDatePicker = (props: ToDoItemDatePickerProps) => {
     return (
-        <DatePicker selected={startDate} onChange={(date) => {
-            setNewToDoItemDate(date);
-            setStartDate(date);
-        }} />
+        <DatePicker selected={props.newToDoItemDate} onChange={(date) => props.setNewToDoItemDate(date)}
+                    onSelect={(date) => props.setNewToDoItemDate(date)} showTimeSelect/>
     );
+
 };

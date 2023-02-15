@@ -5,7 +5,7 @@ import { ToDoItemDatePicker } from "../ToDoItemDatePicker/ToDoItemDatePicker";
 
 export const ToDoItemAdder = ({ handleAdd, toDoList }: ToDoItemAdderProps) => {
     const [newToDoItemName, setNewToDoItemName] = useState<string>("");
-    const [newToDoItemDate, setNewToDoItemDate] = useState<Date | null>(null);
+    const [newToDoItemDate, setNewToDoItemDate] = useState<Date | null>(new Date());
     const [shouldShowEmptyErrorText, setShouldShowEmptyErrorText] = useState<boolean>(false);
     const [shouldShowDuplicateErrorText, setShouldShowDuplicateErrorText] = useState<boolean>(false);
 
@@ -46,7 +46,7 @@ export const ToDoItemAdder = ({ handleAdd, toDoList }: ToDoItemAdderProps) => {
             {shouldShowEmptyErrorText && <p style={{ color: "red" }}>You must enter something</p>}
             {shouldShowDuplicateErrorText && <p style={{ color: "red" }}>You already have that on your list</p>}
             <input aria-label="todo-input" onChange={value => onNameChange(value)} /> {" "}
-            <ToDoItemDatePicker setNewToDoItemDate={setNewToDoItemDate}/>
+            <ToDoItemDatePicker setNewToDoItemDate={setNewToDoItemDate} newToDoItemDate={newToDoItemDate}/>
             <button onClick={onAdd}>Add To-Do Item</button>
         </>);
 }
