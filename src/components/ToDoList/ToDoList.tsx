@@ -29,7 +29,7 @@ export const ToDoList = () => {
     return (
         <>
             <div>
-                <h1>To-Do List</h1>
+                <h1 className={"header"}>To-Do List</h1>
                 <ToDoItemAdder toDoList={toDoItems ?? []} handleAdd={() => setFetchToDoItems(true)} />
                 <ul>
                     {toDoItems?.map((toDoItem, index) =>
