@@ -2,6 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { addToDoItem } from "../../services/toDoService";
 import { ToDoItemAdderProps } from "./ToDoItemAdderProps";
 import { ToDoItemDatePicker } from "../ToDoItemDatePicker/ToDoItemDatePicker";
+import '../../styles/components/ToDoItemAdder/ToDoItemAdder.css';
 
 export const ToDoItemAdder = ({ handleAdd, toDoList }: ToDoItemAdderProps) => {
     const [newToDoItemName, setNewToDoItemName] = useState<string>("");
@@ -45,8 +46,11 @@ export const ToDoItemAdder = ({ handleAdd, toDoList }: ToDoItemAdderProps) => {
         <>
             {shouldShowEmptyErrorText && <p style={{ color: "red" }}>You must enter something</p>}
             {shouldShowDuplicateErrorText && <p style={{ color: "red" }}>You already have that on your list</p>}
-            <input aria-label="todo-input" onChange={value => onNameChange(value)} /> {" "}
-            <ToDoItemDatePicker setNewToDoItemDate={setNewToDoItemDate} newToDoItemDate={newToDoItemDate}/>
-            <button onClick={onAdd}>Add To-Do Item</button>
+            <label>Create a new to-do item</label>
+            <div className={"item-input-container"}>
+                <input aria-label="todo-input" onChange={value => onNameChange(value)} placeholder={"Enter new to-do item"}/> {" "}
+                <ToDoItemDatePicker setNewToDoItemDate={setNewToDoItemDate} newToDoItemDate={newToDoItemDate}/>
+            </div>
+            <button className={"add-item-button"} onClick={onAdd}>Add To-Do Item</button>
         </>);
 }

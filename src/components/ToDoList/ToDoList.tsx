@@ -3,6 +3,7 @@ import { ToDoItem } from "../../services/toDoItem";
 import { getToDoList } from "../../services/toDoService";
 import { ToDoItemAdder } from "../ToDoItemAdder/ToDoItemAdder";
 import { ToDoListItem } from "../ToDoListItem/ToDoListItem";
+import '../../styles/components/ToDoList/ToDoList.css';
 
 export const ToDoList = () => {
     const [fetchToDoItems, setFetchToDoItems] = useState<boolean>(true);
@@ -28,10 +29,10 @@ export const ToDoList = () => {
 
     return (
         <>
-            <div>
+            <div className={"app-container"}>
                 <h1 className={"header"}>To-Do List</h1>
                 <ToDoItemAdder toDoList={toDoItems ?? []} handleAdd={() => setFetchToDoItems(true)} />
-                <ul>
+                <ul className={"todo-list"}>
                     {toDoItems?.map((toDoItem, index) =>
                         <ToDoListItem
                             key={index}
