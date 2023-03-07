@@ -12,12 +12,9 @@ export const ToDoListItem = ({toDoItem, handleDelete}: ToDoListItemProps) => {
     };
 
     return (
-        <li>{`${toDoItem.description} Due: ${toDoItem.dueDate}`}
-            <button 
-                aria-label={`delete-${toDoItem.description}-${toDoItem.id}`} 
-                key={`button-${toDoItem.id}`} 
+        <button aria-label={`delete-${toDoItem.description}-${toDoItem.id}`}
+                key={`button-${toDoItem.id}`}
                 onClick={() => onDelete(toDoItem.id)}
-            > X </button>
-        </li>
+        > X </button>
     );
 };
