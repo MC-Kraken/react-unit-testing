@@ -15,6 +15,6 @@ export const ToDoListItemDeleteButton = ({toDoItem, handleDelete}: ToDoListItemD
         <button aria-label={`delete-${toDoItem.description}-${toDoItem.id}`}
                 key={`button-${toDoItem.id}`}
                 onClick={() => onDelete(toDoItem.id)}
-        > X </button>
+        ><i className="fa-solid fa-circle-check"></i> </button>
     );
 };

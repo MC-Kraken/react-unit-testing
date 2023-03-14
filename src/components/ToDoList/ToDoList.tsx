@@ -6,6 +6,8 @@ import '../../styles/components/ToDoList/ToDoList.css';
 import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
 import { Skeleton } from "@mui/material";
 import { ToDoListItemDeleteButton } from "../ToDoListItemDeleteButton/ToDoListItemDeleteButton";
+import {days, months} from "../../enums/dates";
+
 
 export const ToDoList = () => {
     const [fetchToDoItems, setFetchToDoItems] = useState<boolean>(true);
@@ -31,10 +33,16 @@ export const ToDoList = () => {
     }, [toDoItems])
 
 
+    function formatDate(dueDate: Date | null) {
+       let formattedDate =  new Date(dueDate!.toString());
+        return `${days[formattedDate.getDay()]} ${months[formattedDate.getMonth()]} ${formattedDate.getDate()}`;
+
+    }
+
     function createGridRows(toDoItems: ToDoItem[]) {
         return toDoItems?.map((toDoItem, index) => {
             return {
-                id: (index + 1), task: toDoItem.description, dueDate: toDoItem.dueDate,
+                id: (index + 1), task: toDoItem.description, dueDate: formatDate(toDoItem.dueDate),
                 delete: toDoItem
             }
         }) as GridRowsProp;
@@ -42,8 +50,8 @@ export const ToDoList = () => {
 
 
     const columns: GridColDef[] = [
-        { field: 'task', headerName: 'Task', width: 150 },
-        { field: 'dueDate', headerName: 'Due Date', width: 150 },
+        { field: 'task', headerName: 'Task', width: 250 },
+        { field: 'dueDate', headerName: 'Due Date', width: 250 },
         { field: 'delete', headerName: '', width: 150, renderCell: (params) => <ToDoListItemDeleteButton toDoItem={params.value} handleDelete={() => setFetchToDoItems(true)} /> },
     ];
 
