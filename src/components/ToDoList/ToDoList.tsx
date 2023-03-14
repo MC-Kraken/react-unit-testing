@@ -2,16 +2,15 @@ import { useEffect, useState } from "react";
 import { ToDoItem } from "../../services/toDoItem";
 import { getToDoList } from "../../services/toDoService";
 import { ToDoItemAdder } from "../ToDoItemAdder/ToDoItemAdder";
-import { ToDoListItem } from "../ToDoListItem/ToDoListItem";
 import '../../styles/components/ToDoList/ToDoList.css';
-import {DataGrid, GridColDef, GridRowsProp} from '@mui/x-data-grid';
-import {Skeleton} from "@mui/material";
+import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
+import { Skeleton } from "@mui/material";
+import { ToDoListItemDeleteButton } from "../ToDoListItemDeleteButton/ToDoListItemDeleteButton";
 
 export const ToDoList = () => {
     const [fetchToDoItems, setFetchToDoItems] = useState<boolean>(true);
-    const [toDoItems, setToDoItems] = useState<ToDoItem[]>();
+    const [toDoItems, setToDoItems] = useState<ToDoItem[]>([]);
     const [shouldShowCompleteMessage, setShouldShowCompleteMessage] = useState<boolean>(false);
-    const [gridRows, setGridRows] = useState<GridRowsProp>([]);
     const handleCompleteModalClose = () => setShouldShowCompleteMessage(false);
 
     useEffect(() => {
@@ -20,7 +19,6 @@ export const ToDoList = () => {
             // TODO: Handle errors
             getToDoList().then(response => {
                 setToDoItems(response);
-                createGridRows(response);
             })
             setFetchToDoItems(false);
         }
@@ -33,21 +31,20 @@ export const ToDoList = () => {
     }, [toDoItems])
 
 
-
     function createGridRows(toDoItems: ToDoItem[]) {
-        const rows: GridRowsProp = toDoItems?.map((toDoItem, index) => {
-            return  { id: (index+1), task: toDoItem.description, dueDate: toDoItem.dueDate,
-                delete: <ToDoListItem toDoItem={toDoItem} handleDelete={() => setFetchToDoItems(true)}></ToDoListItem> }
+        return toDoItems?.map((toDoItem, index) => {
+            return {
+                id: (index + 1), task: toDoItem.description, dueDate: toDoItem.dueDate,
+                delete: toDoItem
+            }
         }) as GridRowsProp;
-        setGridRows(rows);
     }
-
 
 
     const columns: GridColDef[] = [
         { field: 'task', headerName: 'Task', width: 150 },
         { field: 'dueDate', headerName: 'Due Date', width: 150 },
-        { field: 'delete', headerName: '', width: 150 },
+        { field: 'delete', headerName: '', width: 150, renderCell: (params) => <ToDoListItemDeleteButton toDoItem={params.value} handleDelete={() => setFetchToDoItems(true)} /> },
     ];
 
 
@@ -57,8 +54,8 @@ export const ToDoList = () => {
                 <h1 className={"header"}>To-Do List</h1>
                 <ToDoItemAdder toDoList={toDoItems ?? []} handleAdd={() => setFetchToDoItems(true)} />
                 {
-                    toDoItems ? (
-                        <DataGrid rows={[]} columns={columns} />
+                    toDoItems.length > 0 ? (
+                        <DataGrid autoHeight={true} rows={createGridRows(toDoItems)} columns={columns} />
                     ) : (
                         <Skeleton variant="rectangular" width={210} height={118} />
                     )

@@ -1,6 +1,6 @@
 import { ToDoItem } from "../../services/toDoItem";
 
-export interface ToDoListItemProps {
+export interface ToDoListItemDeleteButtonProps {
     toDoItem: ToDoItem;
     handleDelete: () => void;
 }

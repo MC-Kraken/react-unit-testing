@@ -1,7 +1,7 @@
 import { deleteToDoItem } from "../../services/toDoService";
-import { ToDoListItemProps } from "./ToDoListItemProps";
+import { ToDoListItemDeleteButtonProps } from "./ToDoListItemDeleteButtonProps";
 
-export const ToDoListItem = ({toDoItem, handleDelete}: ToDoListItemProps) => {
+export const ToDoListItemDeleteButton = ({toDoItem, handleDelete}: ToDoListItemDeleteButtonProps) => {
     const onDelete = (id: number) => {
         // TODO: Handle errors
         deleteToDoItem(id).then((response: Response) => {

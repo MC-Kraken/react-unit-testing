@@ -1,8 +1,9 @@
 import faker from "@faker-js/faker";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { ToDoItem } from "../../services/toDoItem";
-import { ToDoListItem } from "./ToDoListItem";
 import * as toDoService from "../../services/toDoService";
+import React from "react";
+import { ToDoListItemDeleteButton } from "./ToDoListItemDeleteButton";
 
 describe("ToDoListItem", () => {
     it("should allow a user to delete a to-do item", async () => {
@@ -11,7 +12,7 @@ describe("ToDoListItem", () => {
         jest.spyOn(toDoService, "deleteToDoItem").mockResolvedValue(new Response());
         const handleDeleteItemMock = jest.fn();
 
-        render(<ToDoListItem toDoItem={item} handleDelete={handleDeleteItemMock}/>)
+        render(<ToDoListItemDeleteButton toDoItem={item} handleDelete={handleDeleteItemMock}/>)
 
         // Act
         fireEvent.click(screen.getByLabelText(`delete-${item.description}-${item.id}`));
