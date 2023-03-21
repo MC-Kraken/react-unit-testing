@@ -50,6 +50,7 @@ export const ToDoItemAdder = ({ handleAdd, toDoList }: ToDoItemAdderProps) => {
             <div className={"item-input-container"}>
                 <input aria-label="todo-input" onChange={value => onNameChange(value)} placeholder={"Enter new to-do item"}/> {" "}
                 <ToDoItemDatePicker setNewToDoItemDate={setNewToDoItemDate} newToDoItemDate={newToDoItemDate}/>
+                
             </div>
             <button className={"add-item-button"} onClick={onAdd}>Add To-Do Item</button>
         </>);
