@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Api.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Db
 {
@@ -10,27 +11,7 @@ namespace Api.Db
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ToDoItem>().HasData(new List<ToDoItem>
-            {
-                new()
-                {
-                    Id = 1,
-                    Description = "Pick up groceries",
-                    DueDate = DateTime.UtcNow
-                },
-                new()
-                {
-                    Id = 2,
-                    Description = "Go to bank",
-                    DueDate = DateTime.UtcNow
-                },
-                new()
-                {
-                    Id = 3,
-                    Description = "Go to post office",
-                    DueDate = DateTime.UtcNow
-                }
-            });
+            
         }
     }
 }
