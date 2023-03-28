@@ -4,6 +4,7 @@ import { ToDoItemAdder } from "./ToDoItemAdder";
 import userEvent from "@testing-library/user-event";
 import { ToDoItem } from "../../services/toDoItem";
 import * as toDoService from "../../services/toDoService";
+import {priority} from "../../enums/priority";
 
 describe("ToDoItemAdder", () => {
     it("should allow a user to add a to-do item", async () => {
@@ -59,7 +60,8 @@ export const createToDoItems = (numberToCreate: number = 3): ToDoItem[] => {
         items.push({
             id: i,
             description: faker.lorem.word(),
-            dueDate: faker.date.future()
+            dueDate: faker.date.future(),
+            priority: priority.Medium
         })
     }
 

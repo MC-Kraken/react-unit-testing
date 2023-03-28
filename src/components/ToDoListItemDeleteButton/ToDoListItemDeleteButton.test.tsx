@@ -4,11 +4,12 @@ import { ToDoItem } from "../../services/toDoItem";
 import * as toDoService from "../../services/toDoService";
 import React from "react";
 import { ToDoListItemDeleteButton } from "./ToDoListItemDeleteButton";
+import {priority} from "../../enums/priority";
 
 describe("ToDoListItem", () => {
     it("should allow a user to delete a to-do item", async () => {
         // Arrange
-        const item: ToDoItem = { id: Math.random() * 100, description: faker.lorem.word(), dueDate: faker.date.future() }
+        const item: ToDoItem = { id: Math.random() * 100, description: faker.lorem.word(), dueDate: faker.date.future(), priority: priority.Medium }
         jest.spyOn(toDoService, "deleteToDoItem").mockResolvedValue(new Response());
         const handleDeleteItemMock = jest.fn();
 

@@ -3,6 +3,9 @@ import { addToDoItem } from "../../services/toDoService";
 import { ToDoItemAdderProps } from "./ToDoItemAdderProps";
 import { ToDoItemDatePicker } from "../ToDoItemDatePicker/ToDoItemDatePicker";
 import '../../styles/components/ToDoItemAdder/ToDoItemAdder.css';
+import {Selector} from "../Selector/Selector";
+import {FormControl, InputLabel, MenuItem} from "@mui/material";
+import {priority} from "../../enums/priority";
 
 export const ToDoItemAdder = ({ handleAdd, toDoList }: ToDoItemAdderProps) => {
     const [newToDoItemName, setNewToDoItemName] = useState<string>("");
@@ -50,7 +53,14 @@ export const ToDoItemAdder = ({ handleAdd, toDoList }: ToDoItemAdderProps) => {
             <div className={"item-input-container"}>
                 <input aria-label="todo-input" onChange={value => onNameChange(value)} placeholder={"Enter new to-do item"}/> {" "}
                 <ToDoItemDatePicker setNewToDoItemDate={setNewToDoItemDate} newToDoItemDate={newToDoItemDate}/>
-                
+                <FormControl>
+                    <InputLabel>Text</InputLabel>
+                    <Selector label={"Priority"} placeholder={"Choose a priority"}>
+                        <MenuItem value={priority.High}>High</MenuItem>
+                        <MenuItem value={priority.Medium}>Medium</MenuItem>
+                        <MenuItem value={priority.Low}>Low</MenuItem>
+                    </Selector>
+                </FormControl>
             </div>
             <button className={"add-item-button"} onClick={onAdd}>Add To-Do Item</button>
         </>);
