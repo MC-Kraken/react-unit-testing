@@ -52,6 +52,7 @@ export const ToDoList = () => {
     const columns: GridColDef[] = [
         { field: 'task', headerName: 'Task', width: 250 },
         { field: 'dueDate', headerName: 'Due Date', width: 250 },
+        { field: 'priority', headerName: 'Priority', width: 250},
         { field: 'delete', headerName: '', width: 150, renderCell: (params) => <ToDoListItemDeleteButton toDoItem={params.value} handleDelete={() => setFetchToDoItems(true)} /> },
     ];
 

@@ -1,20 +1,18 @@
-import {MenuItem, Select} from "@mui/material";
-import {ChangeEvent, ReactNode, useState} from "react";
+import {Select} from "@mui/material";
+import {ReactNode} from "react";
 
 
 interface SelectorProps {
-   label: string,
-    placeholder: string,
+    label: string,
     children: ReactNode,
+    setToDoItemPriority: (priority: number) => void
+    renderValue: any
 }
 
 
 export const Selector = (props: SelectorProps) => {
-
-    const [value, setValue] = useState<string>("");
-
     return (
-        <Select value={value} label={props.label} onChange={e => setValue(e.target.value)} renderValue={(value) => (value !== '' ? value : 'Placeholder text')}>{props.children}</Select>
+        <Select label={props.label}
+                onChange={e => props.setToDoItemPriority(e.target.value as number)} renderValue={props.renderValue}>{props.children}</Select>
     );
-
 };

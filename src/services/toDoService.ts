@@ -1,4 +1,6 @@
 import { ToDoItem } from "./toDoItem";
+import {constants} from "os";
+import {priority} from "../enums/priority";
 
 const baseUrl = "https://localhost:7016/todoitems";
 
@@ -9,11 +11,12 @@ export const getToDoList = async (): Promise<ToDoItem[]> => {
 }
 
 // TODO: return value?
-export const addToDoItem = async (item: string, date: Date | null): Promise<Response> => {
+export const addToDoItem = async (item: string, date: Date | null, priority: number): Promise<Response> => {
     return await fetch(baseUrl, {
         body: JSON.stringify({
             description: item,
-            dueDate: date
+            dueDate: date,
+            priority: priority
         }),
         method: "POST",
         headers: {
