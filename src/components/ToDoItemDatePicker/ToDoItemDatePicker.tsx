@@ -1,4 +1,5 @@
 import DatePicker from "react-datepicker";
+import '../../styles/components/ToDoItemDatePicker/ToDoItemDatePicker.css';
 
 import "react-datepicker/dist/react-datepicker.css";
 

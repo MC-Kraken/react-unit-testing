@@ -32,3 +32,4 @@ yarn-error.log*
 /api/Api/todo.db-wal
 /.idea/vcs.xml
 /api/.idea/.idea.Api/.idea/vcs.xml
+/api/.idea/.idea.Api/.idea/dataSources.xml

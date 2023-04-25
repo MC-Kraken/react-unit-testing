@@ -20,7 +20,8 @@ namespace Api.Controllers
             ToDoItem dbModel = new()
             {
                 Description = apiModel.Description,
-                DueDate = apiModel.DueDate
+                DueDate = apiModel.DueDate,
+                Priority = apiModel.Priority
             };
 
             _db.ToDoItems.Add(dbModel);

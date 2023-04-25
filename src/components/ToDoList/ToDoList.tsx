@@ -6,7 +6,7 @@ import '../../styles/components/ToDoList/ToDoList.css';
 import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
 import { Skeleton } from "@mui/material";
 import { ToDoListItemDeleteButton } from "../ToDoListItemDeleteButton/ToDoListItemDeleteButton";
-import {days, months} from "../../enums/dates";
+import { days, months } from "../../enums/dates";
 
 
 export const ToDoList = () => {
@@ -30,30 +30,44 @@ export const ToDoList = () => {
         if (toDoItems?.length === 0) {
             setShouldShowCompleteMessage(true)
         }
-    }, [toDoItems])
+    }, [toDoItems]);
 
 
     function formatDate(dueDate: Date | null) {
-       let formattedDate =  new Date(dueDate!.toString());
+        let formattedDate = new Date(dueDate!.toString());
         return `${days[formattedDate.getDay()]} ${months[formattedDate.getMonth()]} ${formattedDate.getDate()}`;
-
     }
 
     function createGridRows(toDoItems: ToDoItem[]) {
         return toDoItems?.map((toDoItem, index) => {
             return {
-                id: (index + 1), task: toDoItem.description, dueDate: formatDate(toDoItem.dueDate),
+                id: (index + 1),
+                task: toDoItem.description,
+                dueDate: formatDate(toDoItem.dueDate),
+                priority: toDoItem.priority,
                 delete: toDoItem
             }
         }) as GridRowsProp;
     }
 
-
     const columns: GridColDef[] = [
         { field: 'task', headerName: 'Task', width: 250 },
         { field: 'dueDate', headerName: 'Due Date', width: 250 },
-        { field: 'priority', headerName: 'Priority', width: 250},
-        { field: 'delete', headerName: '', width: 150, renderCell: (params) => <ToDoListItemDeleteButton toDoItem={params.value} handleDelete={() => setFetchToDoItems(true)} /> },
+        { field: 'priority', headerName: 'Priority', width: 250 },
+        {
+            field: 'delete',
+            headerName: '',
+            width: 150,
+            renderCell: (params) => <ToDoListItemDeleteButton toDoItem={params.value}
+                                                              handleDelete={() => setFetchToDoItems(true)} />
+        },
+        {
+            field: 'edit',
+            headerName: '',
+            width: 150,
+            renderCell: (params) => <ToDoListItemDeleteButton toDoItem={params.value}
+                                                              handleDelete={() => setFetchToDoItems(true)} />
+        },
     ];
 
 

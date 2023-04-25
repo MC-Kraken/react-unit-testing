@@ -1,13 +1,13 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
-import {addToDoItem} from "../../services/toDoService";
-import {ToDoItemAdderProps} from "./ToDoItemAdderProps";
-import {ToDoItemDatePicker} from "../ToDoItemDatePicker/ToDoItemDatePicker";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { addToDoItem } from "../../services/toDoService";
+import { ToDoItemAdderProps } from "./ToDoItemAdderProps";
+import { ToDoItemDatePicker } from "../ToDoItemDatePicker/ToDoItemDatePicker";
 import '../../styles/components/ToDoItemAdder/ToDoItemAdder.css';
-import {Selector} from "../Selector/Selector";
-import {FormControl, InputLabel, MenuItem} from "@mui/material";
-import {priority} from "../../enums/priority";
+import { Selector } from "../Selector/Selector";
+import { FormControl, InputLabel, MenuItem } from "@mui/material";
+import { priority } from "../../enums/priority";
 
-export const ToDoItemAdder = ({handleAdd, toDoList}: ToDoItemAdderProps) => {
+export const ToDoItemAdder = ({ handleAdd, toDoList }: ToDoItemAdderProps) => {
     const [newToDoItemName, setNewToDoItemName] = useState<string>("");
     const [newToDoItemDate, setNewToDoItemDate] = useState<Date | null>(new Date());
     const [newToDoItemPriority, setNewToDoItemPriority] = useState<number>(priority.Low);
@@ -48,18 +48,17 @@ export const ToDoItemAdder = ({handleAdd, toDoList}: ToDoItemAdderProps) => {
 
     return (
         <>
-            {shouldShowEmptyErrorText && <p style={{color: "red"}}>You must enter something</p>}
-            {shouldShowDuplicateErrorText && <p style={{color: "red"}}>You already have that on your list</p>}
+            {shouldShowEmptyErrorText && <p style={{ color: "red" }}>You must enter something</p>}
+            {shouldShowDuplicateErrorText && <p style={{ color: "red" }}>You already have that on your list</p>}
             <label>Create a new to-do item</label>
             <div className={"item-input-container"}>
                 <input aria-label="todo-input" onChange={value => onNameChange(value)}
-                       placeholder={"Enter new to-do item"}/> {" "}
-                <ToDoItemDatePicker setNewToDoItemDate={setNewToDoItemDate} newToDoItemDate={newToDoItemDate}/>
+                       placeholder={"Enter new to-do item"} /> {" "}
+                <ToDoItemDatePicker setNewToDoItemDate={setNewToDoItemDate} newToDoItemDate={newToDoItemDate} />
                 <FormControl>
                     <InputLabel>Text</InputLabel>
-                    <Selector label={"Priority"}
-                              setToDoItemPriority={setNewToDoItemPriority}
-                              renderValue={(value: number) =>  priority[value]}>
+                    <Selector label={"Priority"} setToDoItemPriority={setNewToDoItemPriority}
+                              value={newToDoItemPriority} renderValue={(value: any) => priority[value]}>
                         <MenuItem value={priority.High}>High</MenuItem>
                         <MenuItem value={priority.Medium}>Medium</MenuItem>
                         <MenuItem value={priority.Low}>Low</MenuItem>
@@ -67,5 +66,6 @@ export const ToDoItemAdder = ({handleAdd, toDoList}: ToDoItemAdderProps) => {
                 </FormControl>
             </div>
             <button className={"add-item-button"} onClick={onAdd}>Add To-Do Item</button>
-        </>);
+        </>
+    );
 }
