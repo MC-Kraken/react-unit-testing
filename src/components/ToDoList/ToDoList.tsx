@@ -7,6 +7,7 @@ import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
 import { Skeleton } from "@mui/material";
 import { ToDoListItemDeleteButton } from "../ToDoListItemDeleteButton/ToDoListItemDeleteButton";
 import { days, months } from "../../enums/dates";
+import { ToDoListItemEditButton } from "../ToDoListItemEditButton/ToDoListItemEditButton";
 
 
 export const ToDoList = () => {
@@ -45,7 +46,8 @@ export const ToDoList = () => {
                 task: toDoItem.description,
                 dueDate: formatDate(toDoItem.dueDate),
                 priority: toDoItem.priority,
-                delete: toDoItem
+                delete: toDoItem,
+                edit: toDoItem
             }
         }) as GridRowsProp;
     }
@@ -65,8 +67,8 @@ export const ToDoList = () => {
             field: 'edit',
             headerName: '',
             width: 150,
-            renderCell: (params) => <ToDoListItemDeleteButton toDoItem={params.value}
-                                                              handleDelete={() => setFetchToDoItems(true)} />
+            renderCell: (params) => <ToDoListItemEditButton toDoItem={params.value}
+                                                              handleEdit={() => setFetchToDoItems(true)} />
         },
     ];
 

@@ -1,7 +1,7 @@
 // import { editToDoItem } from "../../services/toDoService";
 import { ToDoListItemEditButtonProps } from "./ToDoListItemEditButtonProps";
 
-export const ToDoListItemEditButton = ({ toDoItem }: ToDoListItemEditButtonProps) => {
+export const ToDoListItemEditButton = ({ toDoItem, handleEdit }: ToDoListItemEditButtonProps) => {
     const onEdit = (id: number) => {
         // TODO: Handle errors
         // editToDoItem(id).then((response: Response) => {
@@ -15,6 +15,6 @@ export const ToDoListItemEditButton = ({ toDoItem }: ToDoListItemEditButtonProps
         <button aria-label={`edit-${toDoItem.description}-${toDoItem.id}`}
                 key={`button-${toDoItem.id}`}
                 onClick={() => onEdit(toDoItem.id)}
-        ><i className="fa-solid fa-circle-check"></i></button>
+        ><i className="fas fa-edit"></i></button>
     );
 };

@@ -2,5 +2,6 @@ import { ToDoItem } from "../../services/toDoItem";
 
 export interface ToDoListItemEditButtonProps
 {
-    toDoItem: ToDoItem
+    toDoItem: ToDoItem;
+    handleEdit: () => void;
 }
