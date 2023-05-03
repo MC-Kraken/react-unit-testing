@@ -4,9 +4,10 @@ import { ToDoListItemEditButtonProps } from "./ToDoListItemEditButtonProps";
 export const ToDoListItemEditButton = ({ toDoItem, handleEdit }: ToDoListItemEditButtonProps) => {
     const onEdit = (id: number) => {
         // TODO: Handle errors
+        handleEdit();
         // editToDoItem(id).then((response: Response) => {
         //     if (response.ok) {
-        //         handleEdit();
+        //
         //     }
         // });
     };

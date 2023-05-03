@@ -8,13 +8,13 @@ import { Skeleton } from "@mui/material";
 import { ToDoListItemDeleteButton } from "../ToDoListItemDeleteButton/ToDoListItemDeleteButton";
 import { days, months } from "../../enums/dates";
 import { ToDoListItemEditButton } from "../ToDoListItemEditButton/ToDoListItemEditButton";
+import { ToDoModal } from "../ToDoModal/ToDoModal";
 
 
 export const ToDoList = () => {
     const [fetchToDoItems, setFetchToDoItems] = useState<boolean>(true);
     const [toDoItems, setToDoItems] = useState<ToDoItem[]>([]);
-    const [shouldShowCompleteMessage, setShouldShowCompleteMessage] = useState<boolean>(false);
-    const handleCompleteModalClose = () => setShouldShowCompleteMessage(false);
+    const [shouldShowModal, setShouldShowModal] = useState<boolean>(false);
 
     useEffect(() => {
         // TODO: Add loader
@@ -27,16 +27,14 @@ export const ToDoList = () => {
         }
     }, [fetchToDoItems]);
 
-    useEffect(() => {
-        if (toDoItems?.length === 0) {
-            setShouldShowCompleteMessage(true)
-        }
-    }, [toDoItems]);
-
-
     function formatDate(dueDate: Date | null) {
         let formattedDate = new Date(dueDate!.toString());
         return `${days[formattedDate.getDay()]} ${months[formattedDate.getMonth()]} ${formattedDate.getDate()}`;
+    }
+
+    function handleEdit() {
+        console.log("you clicked me");
+        setShouldShowModal(true);
     }
 
     function createGridRows(toDoItems: ToDoItem[]) {
@@ -68,10 +66,9 @@ export const ToDoList = () => {
             headerName: '',
             width: 150,
             renderCell: (params) => <ToDoListItemEditButton toDoItem={params.value}
-                                                              handleEdit={() => setFetchToDoItems(true)} />
+                                                            handleEdit={() => handleEdit()}/>
         },
     ];
-
 
     return (
         <>
@@ -88,11 +85,9 @@ export const ToDoList = () => {
             </div>
             <hr />
             <h3>Number of To-Do List items: {toDoItems?.length}</h3>
-            {shouldShowCompleteMessage && <div>
-                <p>You did everything on your list!</p>
-                <button onClick={handleCompleteModalClose}>OK</button>
-            </div>}
+            <div className={"modal-wrapper"}>
+                <ToDoModal shouldShow={shouldShowModal} setShouldShow={setShouldShowModal} />
+            </div>
         </>
-
     );
 }
