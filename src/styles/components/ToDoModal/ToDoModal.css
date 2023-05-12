@@ -1,0 +1,14 @@
+.MuiBox-root.css-rah383 {
+  width: 500px;
+  height: 300px;
+  background-color: oldlace;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50vh;
+  transform: translateY(-50%);
+  padding: 25px;
+}
+.css-rah383:hover {
+  background-color: oldlace !important;
+  opacity: unset !important;
+}

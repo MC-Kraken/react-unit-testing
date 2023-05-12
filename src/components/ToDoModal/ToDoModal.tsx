@@ -1,8 +1,10 @@
 import React from "react";
-import { Box, Modal, Typography } from "@mui/material";
+import { Box, Modal } from "@mui/material";
 import { ToDoModalProps } from "./ToDoModalProps";
+import "../../styles/components/ToDoModal/ToDoModal.css"
+import { ToDoItemAdder } from "../ToDoItemAdder/ToDoItemAdder";
 
-export const ToDoModal = ({shouldShow, setShouldShow}: ToDoModalProps) => {
+export const ToDoModal = ({shouldShow, setShouldShow, toDoList}: ToDoModalProps) => {
 
     const style = {
         width: 300,
@@ -20,12 +22,7 @@ export const ToDoModal = ({shouldShow, setShouldShow}: ToDoModalProps) => {
         aria-describedby="modal-modal-description"
     >
         <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-                Text in a modal
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
+            <ToDoItemAdder buttonText={"Update"} toDoList={toDoList} handleAdd={() => {}} />
         </Box>
     </Modal>)
 }

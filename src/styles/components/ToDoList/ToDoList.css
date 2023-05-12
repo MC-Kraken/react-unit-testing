@@ -12,8 +12,3 @@
 .MuiDataGrid-cell--withRenderer.MuiDataGrid-cell.MuiDataGrid-cell--textLeft.MuiDataGrid-withBorderColor:focus-within {
   outline: none;
 }
-.modal-wrapper {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-}

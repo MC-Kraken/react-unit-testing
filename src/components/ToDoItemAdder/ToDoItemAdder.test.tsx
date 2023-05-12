@@ -10,14 +10,15 @@ describe("ToDoItemAdder", () => {
     it("should allow a user to add a to-do item", async () => {
         const handleAddMock = jest.fn();
         jest.spyOn(toDoService, "addToDoItem").mockResolvedValue(new Response());
+        let buttonText = faker.lorem.word();
 
         // Arrange
-        render(<ToDoItemAdder toDoList={createToDoItems(3)} handleAdd={handleAddMock} />);
+        render(<ToDoItemAdder buttonText={buttonText} toDoList={createToDoItems(3)} handleAdd={handleAddMock} />);
 
         // Act
         const input = screen.getByLabelText("todo-input");
         userEvent.paste(input, faker.lorem.word());
-        userEvent.click(screen.getByText("Add To-Do Item"));
+        userEvent.click(screen.getByText(buttonText));
 
         // Assert
         await waitFor(() => {
@@ -28,14 +29,15 @@ describe("ToDoItemAdder", () => {
     it("should not allow a user to add a duplicate to-do item", async () => {
         const existingListItem = createToDoItems(1)[0];
         jest.spyOn(toDoService, "addToDoItem").mockResolvedValue(new Response());
+        let buttonText = faker.lorem.word();
         
         // Arrange
-        render(<ToDoItemAdder toDoList={[existingListItem]} handleAdd={jest.fn()} />);
+        render(<ToDoItemAdder buttonText={buttonText} toDoList={[existingListItem]} handleAdd={jest.fn()} />);
 
         // Act
         const input = screen.getByLabelText("todo-input");
         userEvent.paste(input, existingListItem.description);
-        userEvent.click(screen.getByText("Add To-Do Item"));
+        userEvent.click(screen.getByText(buttonText));
 
         // Assert
         await waitFor(async () => {
@@ -44,7 +46,7 @@ describe("ToDoItemAdder", () => {
 
         //Act
         userEvent.paste(input, faker.lorem.word());
-        userEvent.click(screen.getByText("Add To-Do Item"));
+        userEvent.click(screen.getByText(buttonText));
 
         // Assert
         await waitFor(() => {

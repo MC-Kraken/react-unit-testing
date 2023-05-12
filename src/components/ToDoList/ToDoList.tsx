@@ -74,7 +74,7 @@ export const ToDoList = () => {
         <>
             <div className={"app-container"}>
                 <h1 className={"header"}>To-Do List</h1>
-                <ToDoItemAdder toDoList={toDoItems ?? []} handleAdd={() => setFetchToDoItems(true)} />
+                <ToDoItemAdder buttonText={"Add ToDo Item"} toDoList={toDoItems ?? []} handleAdd={() => setFetchToDoItems(true)} />
                 {
                     toDoItems.length > 0 ? (
                         <DataGrid autoHeight={true} rows={createGridRows(toDoItems)} columns={columns} />
@@ -85,9 +85,6 @@ export const ToDoList = () => {
             </div>
             <hr />
             <h3>Number of To-Do List items: {toDoItems?.length}</h3>
-            <div className={"modal-wrapper"}>
-                <ToDoModal shouldShow={shouldShowModal} setShouldShow={setShouldShowModal} />
-            </div>
         </>
     );
 }

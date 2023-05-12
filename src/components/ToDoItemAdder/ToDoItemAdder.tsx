@@ -7,7 +7,7 @@ import { Selector } from "../Selector/Selector";
 import { FormControl, InputLabel, MenuItem } from "@mui/material";
 import { priority } from "../../enums/priority";
 
-export const ToDoItemAdder = ({ handleAdd, toDoList }: ToDoItemAdderProps) => {
+export const ToDoItemAdder = ({ handleAdd, toDoList, buttonText }: ToDoItemAdderProps) => {
     const [newToDoItemName, setNewToDoItemName] = useState<string>("");
     const [newToDoItemDate, setNewToDoItemDate] = useState<Date | null>(new Date());
     const [newToDoItemPriority, setNewToDoItemPriority] = useState<number>(priority.Low);
@@ -65,7 +65,7 @@ export const ToDoItemAdder = ({ handleAdd, toDoList }: ToDoItemAdderProps) => {
                     </Selector>
                 </FormControl>
             </div>
-            <button className={"add-item-button"} onClick={onAdd}>Add To-Do Item</button>
+            <button className={"add-item-button"} onClick={onAdd}>{buttonText}</button>
         </>
     );
 }

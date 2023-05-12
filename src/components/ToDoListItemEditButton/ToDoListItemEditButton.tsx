@@ -1,5 +1,6 @@
 // import { editToDoItem } from "../../services/toDoService";
 import { ToDoListItemEditButtonProps } from "./ToDoListItemEditButtonProps";
+import { ToDoModal } from "../ToDoModal/ToDoModal";
 
 export const ToDoListItemEditButton = ({ toDoItem, handleEdit }: ToDoListItemEditButtonProps) => {
     const onEdit = (id: number) => {
@@ -13,9 +14,13 @@ export const ToDoListItemEditButton = ({ toDoItem, handleEdit }: ToDoListItemEdi
     };
 
     return (
-        <button aria-label={`edit-${toDoItem.description}-${toDoItem.id}`}
-                key={`button-${toDoItem.id}`}
-                onClick={() => onEdit(toDoItem.id)}
-        ><i className="fas fa-edit"></i></button>
+        <>
+            <button aria-label={`edit-${toDoItem.description}-${toDoItem.id}`}
+                    key={`button-${toDoItem.id}`}
+                    onClick={() => onEdit(toDoItem.id)}
+            ><i className="fas fa-edit"></i></button>
+            // TODO: fix this up. Find item out of list by id
+            <ToDoModal toDoList={toDoItems} shouldShow={shouldShowModal} setShouldShow={setShouldShowModal} />
+        </>
     );
 };
