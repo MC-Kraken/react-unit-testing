@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSqlite<ToDoContext>("Data Source=todo.db");
+builder.Services.AddSqlite<ItemsContext>("Data Source=todo.db");
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
