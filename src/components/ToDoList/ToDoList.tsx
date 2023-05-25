@@ -8,13 +8,10 @@ import { Skeleton } from "@mui/material";
 import { ToDoListItemDeleteButton } from "../ToDoListItemDeleteButton/ToDoListItemDeleteButton";
 import { days, months } from "../../enums/dates";
 import { ToDoListItemEditButton } from "../ToDoListItemEditButton/ToDoListItemEditButton";
-import { ToDoModal } from "../ToDoModal/ToDoModal";
-
 
 export const ToDoList = () => {
     const [fetchToDoItems, setFetchToDoItems] = useState<boolean>(true);
     const [toDoItems, setToDoItems] = useState<ToDoItem[]>([]);
-    const [shouldShowModal, setShouldShowModal] = useState<boolean>(false);
 
     useEffect(() => {
         // TODO: Add loader
@@ -33,8 +30,8 @@ export const ToDoList = () => {
     }
 
     function handleEdit() {
-        console.log("you clicked me");
-        setShouldShowModal(true);
+        setFetchToDoItems(true);
+        console.log('handleEdit made it alll the way down');
     }
 
     function createGridRows(toDoItems: ToDoItem[]) {

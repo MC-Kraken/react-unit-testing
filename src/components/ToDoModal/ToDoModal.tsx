@@ -3,8 +3,9 @@ import { Box, Modal } from "@mui/material";
 import { ToDoModalProps } from "./ToDoModalProps";
 import "../../styles/components/ToDoModal/ToDoModal.css"
 import { ToDoItemAdder } from "../ToDoItemAdder/ToDoItemAdder";
+import { ToDoItemEditor } from "../ToDoItemEditor/ToDoItemEditor";
 
-export const ToDoModal = ({shouldShow, setShouldShow, toDoList}: ToDoModalProps) => {
+export const ToDoModal = ({shouldShow, setShouldShow, toDoItem, handler}: ToDoModalProps) => {
 
     const style = {
         width: 300,
@@ -22,7 +23,7 @@ export const ToDoModal = ({shouldShow, setShouldShow, toDoList}: ToDoModalProps)
         aria-describedby="modal-modal-description"
     >
         <Box sx={style}>
-            <ToDoItemAdder buttonText={"Update"} toDoList={toDoList} handleAdd={() => {}} />
+            <ToDoItemEditor toDoItem={toDoItem} handleEdit={handler}/>
         </Box>
     </Modal>)
 }

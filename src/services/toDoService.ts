@@ -8,7 +8,6 @@ export const getToDoList = async (): Promise<ToDoItem[]> => {
     return response.json();
 }
 
-// TODO: return value?
 export const addToDoItem = async (item: string, date: Date | null, priority: any): Promise<Response> => {
     return await fetch(baseUrl, {
         body: JSON.stringify({
@@ -20,6 +19,20 @@ export const addToDoItem = async (item: string, date: Date | null, priority: any
         headers: {
             "Content-Type": "application/json"
         }        
+    });
+}
+
+export const editToDoItem = async (item: string, date: Date | null, priority: any): Promise<Response> => {
+    return await fetch(baseUrl, {
+        body: JSON.stringify({
+            description: item,
+            dueDate: date,
+            priority: priority
+        }),
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        }
     });
 }
 
