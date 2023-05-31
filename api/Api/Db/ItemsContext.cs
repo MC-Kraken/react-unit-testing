@@ -4,7 +4,6 @@ namespace Api.Db
 {
     public class ItemsContext : DbContext
     {
-        public DbSet<Item> ToDoItems { get; set; }
 
         public ItemsContext(DbContextOptions<ItemsContext> options) : base(options) { }
 
