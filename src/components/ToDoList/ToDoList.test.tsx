@@ -4,7 +4,7 @@ import * as toDoService from "../../services/toDoService";
 import { faker } from "@faker-js/faker";
 import userEvent from "@testing-library/user-event";
 import { ToDoItem } from "../../services/toDoItem";
-import {priority} from "../../enums/priority";
+import {toDoItemPriority} from "../../enums/toDoItemPriority";
 
 describe("ToDoList", () => {
     // true unit test
@@ -27,7 +27,7 @@ describe("ToDoList", () => {
         const expectedNewItem = faker.lorem.word();
         jest.spyOn(toDoService, "getToDoList")
             .mockResolvedValueOnce([]) // initial load
-            .mockResolvedValueOnce([ { id: Math.random() * 100, description: expectedNewItem, dueDate: faker.date.future(), priority: priority.Medium}]); // when component reloads
+            .mockResolvedValueOnce([ { id: Math.random() * 100, description: expectedNewItem, dueDate: faker.date.future(), priority: toDoItemPriority.Medium}]); // when component reloads
         jest.spyOn(toDoService, "addToDoItem").mockResolvedValue(new Response());
 
         // Act
@@ -186,7 +186,7 @@ export const createToDoItems = (numberToCreate: number = 3): ToDoItem[] => {
             id: i,
             description: faker.lorem.word(),
             dueDate: faker.date.future(),
-            priority: priority.Medium
+            priority: toDoItemPriority.Medium
         })
     }
 

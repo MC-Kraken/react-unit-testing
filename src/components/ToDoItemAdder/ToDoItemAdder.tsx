@@ -5,35 +5,35 @@ import { ToDoItemDatePicker } from "../ToDoItemDatePicker/ToDoItemDatePicker";
 import '../../styles/components/ToDoItemAdder/ToDoItemAdder.css';
 import { Selector } from "../Selector/Selector";
 import { FormControl, InputLabel, MenuItem } from "@mui/material";
-import { priority } from "../../enums/priority";
+import { toDoItemPriority } from "../../enums/toDoItemPriority";
 
 export const ToDoItemAdder = ({ handleAdd, toDoList, buttonText }: ToDoItemAdderProps) => {
-    const [newToDoItemName, setNewToDoItemName] = useState<string>("");
-    const [newToDoItemDate, setNewToDoItemDate] = useState<Date | null>(new Date());
-    const [newToDoItemPriority, setNewToDoItemPriority] = useState<number>(priority.Low);
+    const [newToDoItemDescription, setNewToDoItemDescription] = useState<string>("");
+    const [newToDoItemDate, setNewToDoItemDate] = useState<Date | null | string>(new Date());
+    const [newToDoItemPriority, setNewToDoItemPriority] = useState<number>(toDoItemPriority.Low);
     const [shouldShowEmptyErrorText, setShouldShowEmptyErrorText] = useState<boolean>(false);
     const [shouldShowDuplicateErrorText, setShouldShowDuplicateErrorText] = useState<boolean>(false);
 
     const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         const newNameValue = e.currentTarget.value;
-        setNewToDoItemName(newNameValue);
+        setNewToDoItemDescription(newNameValue);
     };
 
     const onAdd = () => {
-        if (newToDoItemName === "") {
+        if (newToDoItemDescription === "") {
             setShouldShowEmptyErrorText(true);
             return;
         }
 
-        if (toDoList.find(i => i.description === newToDoItemName)) {
+        if (toDoList.find(i => i.description === newToDoItemDescription)) {
             setShouldShowDuplicateErrorText(true);
             return;
         } else {
             setShouldShowDuplicateErrorText(false);
         }
 
-        addToDoItem(newToDoItemName, newToDoItemDate, newToDoItemPriority).then((response: Response) => {
+        addToDoItem(newToDoItemDescription, newToDoItemDate, newToDoItemPriority).then((response: Response) => {
             if (response.ok) {
                 handleAdd();
             }
@@ -41,10 +41,10 @@ export const ToDoItemAdder = ({ handleAdd, toDoList, buttonText }: ToDoItemAdder
     }
 
     useEffect(() => {
-        if (shouldShowEmptyErrorText && newToDoItemName.length > 0) {
+        if (shouldShowEmptyErrorText && newToDoItemDescription.length > 0) {
             setShouldShowEmptyErrorText(false);
         }
-    }, [newToDoItemName])
+    }, [newToDoItemDescription])
 
     return (
         <>
@@ -54,14 +54,14 @@ export const ToDoItemAdder = ({ handleAdd, toDoList, buttonText }: ToDoItemAdder
             <div className={"item-input-container"}>
                 <input aria-label="todo-input" onChange={value => onNameChange(value)}
                        placeholder={"Enter new to-do item"} /> {" "}
-                <ToDoItemDatePicker setNewToDoItemDate={setNewToDoItemDate} newToDoItemDate={newToDoItemDate} />
+                <ToDoItemDatePicker setNewToDoItemDate={setNewToDoItemDate} selectedDate={newToDoItemDate} />
                 <FormControl>
                     <InputLabel>Text</InputLabel>
                     <Selector label={"Priority"} setToDoItemPriority={setNewToDoItemPriority}
-                              value={newToDoItemPriority} renderValue={(value: any) => priority[value]}>
-                        <MenuItem value={priority.High}>High</MenuItem>
-                        <MenuItem value={priority.Medium}>Medium</MenuItem>
-                        <MenuItem value={priority.Low}>Low</MenuItem>
+                              value={newToDoItemPriority} renderValue={(value: any) => toDoItemPriority[value]}>
+                        <MenuItem value={toDoItemPriority.High}>High</MenuItem>
+                        <MenuItem value={toDoItemPriority.Medium}>Medium</MenuItem>
+                        <MenuItem value={toDoItemPriority.Low}>Low</MenuItem>
                     </Selector>
                 </FormControl>
             </div>

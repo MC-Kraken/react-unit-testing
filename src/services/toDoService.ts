@@ -8,7 +8,7 @@ export const getToDoList = async (): Promise<ToDoItem[]> => {
     return response.json();
 }
 
-export const addToDoItem = async (item: string, date: Date | null, priority: any): Promise<Response> => {
+export const addToDoItem = async (item: string, date: string | Date | null, priority: any): Promise<Response> => {
     return await fetch(baseUrl, {
         body: JSON.stringify({
             description: item,
@@ -22,16 +22,12 @@ export const addToDoItem = async (item: string, date: Date | null, priority: any
     });
 }
 
-export const editToDoItem = async (item: string, date: Date | null, priority: any): Promise<Response> => {
-    return await fetch(baseUrl, {
-        body: JSON.stringify({
-            description: item,
-            dueDate: date,
-            priority: priority
-        }),
+export const editToDoItem = async (ops: any, id: number): Promise<Response> => {
+    return await fetch(`${baseUrl}/${id}`, {
+        body: JSON.stringify(ops),
         method: "PATCH",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json-patch+json"
         }
     });
 }

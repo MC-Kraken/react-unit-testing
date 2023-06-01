@@ -1,33 +1,61 @@
 import { ToDoItemDatePicker } from "../ToDoItemDatePicker/ToDoItemDatePicker";
 import { FormControl, InputLabel, MenuItem } from "@mui/material";
 import { Selector } from "../Selector/Selector";
-import { priority } from "../../enums/priority";
+import { toDoItemPriority } from "../../enums/toDoItemPriority";
 import React, { ChangeEvent, useState } from "react";
 import { ToDoItemEditorProps } from "./ToDoItemEditorProps";
-import { addToDoItem, editToDoItem } from "../../services/toDoService";
+import { editToDoItem } from "../../services/toDoService";
 
-export const ToDoItemEditor = ({ toDoItem, handleEdit }: ToDoItemEditorProps) => {
-    const [newToDoItemDate, setNewToDoItemDate] = useState<Date | null>(new Date());
-    const [newToDoItemName, setNewToDoItemName] = useState<string>("");
-    const [newToDoItemPriority, setNewToDoItemPriority] = useState<number>(priority.Low);
+export const ToDoItemEditor = ({ id, dueDate, priority, description, handleEdit, setShouldShow }: ToDoItemEditorProps) => {
+    const [newToDoItemDate, setNewToDoItemDate] = useState<Date | string | null>(dueDate);
+    const [newToDoItemDescription, setNewToDoItemDescription] = useState<string>(description);
+    const [newToDoItemPriority, setNewToDoItemPriority] = useState<number>(priority);
     const [shouldShowEmptyErrorText, setShouldShowEmptyErrorText] = useState<boolean>(false);
 
     const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         const newNameValue = e.currentTarget.value;
-        setNewToDoItemName(newNameValue);
+        setNewToDoItemDescription(newNameValue);
     };
 
     const onEdit = () => {
-        if (newToDoItemName === "") {
+        if (newToDoItemDescription === "") {
             setShouldShowEmptyErrorText(true);
             return;
         }
 
-        // this service call still needs to have PATCH request implemented
-        editToDoItem(newToDoItemName, newToDoItemDate, newToDoItemPriority).then((response: Response) => {
+        const ops = [];
+        if (newToDoItemDescription !== description) {
+            const op = {
+                "op": "replace",
+                "path": "/description",
+                "value": newToDoItemDescription
+            };
+            ops.push(op);
+        }
+
+        if (newToDoItemDate !== dueDate && newToDoItemDate !== null) {
+            const op = {
+                "op": "replace",
+                "path": "/dueDate",
+                "value": new Date(newToDoItemDate)
+            };
+            ops.push(op);
+        }
+
+        if (newToDoItemPriority !== priority) {
+            const op = {
+                "op": "replace",
+                "path": "/priority",
+                "value": newToDoItemPriority
+            };
+            ops.push(op);
+        }
+
+        editToDoItem(ops, id).then((response: Response) => {
             if (response.ok) {
                 handleEdit();
+                setShouldShow(false);
             }
         });
 
@@ -39,15 +67,15 @@ export const ToDoItemEditor = ({ toDoItem, handleEdit }: ToDoItemEditorProps) =>
             <label>Create a new to-do item</label>
             <div className={"item-input-container"}>
                 <input aria-label="todo-input" onChange={value => onNameChange(value)}
-                       placeholder={"Edit your to-do item"} /> {" "}
-                <ToDoItemDatePicker setNewToDoItemDate={setNewToDoItemDate} newToDoItemDate={newToDoItemDate} />
+                       placeholder={"Edit your to-do item"} value={newToDoItemDescription} /> {" "}
+                <ToDoItemDatePicker setNewToDoItemDate={setNewToDoItemDate} selectedDate={new Date(newToDoItemDate!)} />
                 <FormControl>
                     <InputLabel>Text</InputLabel>
                     <Selector label={"Priority"} setToDoItemPriority={setNewToDoItemPriority}
-                              value={toDoItem.priority} renderValue={(value: any) => priority[value]}>
-                        <MenuItem value={priority.High}>High</MenuItem>
-                        <MenuItem value={priority.Medium}>Medium</MenuItem>
-                        <MenuItem value={priority.Low}>Low</MenuItem>
+                              value={priority} renderValue={(value: any) => toDoItemPriority[value]}>
+                        <MenuItem value={toDoItemPriority.High}>High</MenuItem>
+                        <MenuItem value={toDoItemPriority.Medium}>Medium</MenuItem>
+                        <MenuItem value={toDoItemPriority.Low}>Low</MenuItem>
                     </Selector>
                 </FormControl>
             </div>

@@ -62,8 +62,10 @@ export const ToDoList = () => {
             field: 'edit',
             headerName: '',
             width: 150,
-            renderCell: (params) => <ToDoListItemEditButton toDoItem={params.value}
-                                                            handleEdit={() => handleEdit()}/>
+            renderCell: (params) => <ToDoListItemEditButton id={params.value.id} priority={params.value.priority}
+                                                            description={params.value.description}
+                                                            dueDate={params.value.dueDate}
+                                                            handleEdit={() => handleEdit()} />
         },
     ];
 
@@ -71,7 +73,8 @@ export const ToDoList = () => {
         <>
             <div className={"app-container"}>
                 <h1 className={"header"}>To-Do List</h1>
-                <ToDoItemAdder buttonText={"Add ToDo Item"} toDoList={toDoItems ?? []} handleAdd={() => setFetchToDoItems(true)} />
+                <ToDoItemAdder buttonText={"Add ToDo Item"} toDoList={toDoItems ?? []}
+                               handleAdd={() => setFetchToDoItems(true)} />
                 {
                     toDoItems.length > 0 ? (
                         <DataGrid autoHeight={true} rows={createGridRows(toDoItems)} columns={columns} />

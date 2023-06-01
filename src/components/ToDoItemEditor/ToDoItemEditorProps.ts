@@ -1,6 +1,8 @@
-import { ToDoItem } from "../../services/toDoItem";
-
 export interface ToDoItemEditorProps {
-    toDoItem: ToDoItem;
+    id: number;
+    description: string;
+    dueDate: string;
+    priority: any;
+    setShouldShow: (shouldShow: boolean) => void;
     handleEdit: () => void;
 }

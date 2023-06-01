@@ -1,7 +1,8 @@
-import { ToDoItem } from "../../services/toDoItem";
-
 export interface ToDoListItemEditButtonProps
 {
-    toDoItem: ToDoItem;
+    id: number;
+    description: string;
+    dueDate: string;
+    priority: any;
     handleEdit: () => void;
 }

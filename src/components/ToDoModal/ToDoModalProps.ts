@@ -1,8 +1,9 @@
-import { ToDoItem } from "../../services/toDoItem";
-
 export interface ToDoModalProps {
     shouldShow: boolean;
     setShouldShow: (shouldShow: boolean) => void
-    toDoItem: ToDoItem;
+    id: number;
+    description: string;
+    dueDate: string;
+    priority: any;
     handler: () => void;
 }
