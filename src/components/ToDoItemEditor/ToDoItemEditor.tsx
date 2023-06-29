@@ -72,7 +72,7 @@ export const ToDoItemEditor = ({ id, dueDate, priority, description, handleEdit,
                 <FormControl>
                     <InputLabel>Text</InputLabel>
                     <Selector label={"Priority"} setToDoItemPriority={setNewToDoItemPriority}
-                              value={priority} renderValue={(value: any) => toDoItemPriority[value]}>
+                              value={newToDoItemPriority} renderValue={(value: any) => toDoItemPriority[value]}>
                         <MenuItem value={toDoItemPriority.High}>High</MenuItem>
                         <MenuItem value={toDoItemPriority.Medium}>Medium</MenuItem>
                         <MenuItem value={toDoItemPriority.Low}>Low</MenuItem>

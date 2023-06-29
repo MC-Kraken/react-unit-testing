@@ -10,7 +10,7 @@ interface ToDoItemDatePickerProps {
 
 export const ToDoItemDatePicker = (props: ToDoItemDatePickerProps) => {
     return (
-        <DatePicker selected={props.selectedDate as Date} onChange={(date) => props.setNewToDoItemDate(date)}
+        <DatePicker placeholderText={"Choose a due date"} selected={props.selectedDate as Date} onChange={(date) => props.setNewToDoItemDate(date)}
                     onSelect={(date) => props.setNewToDoItemDate(date)} showTimeSelect/>
     );
 

@@ -9,7 +9,7 @@ import { toDoItemPriority } from "../../enums/toDoItemPriority";
 
 export const ToDoItemAdder = ({ handleAdd, toDoList, buttonText }: ToDoItemAdderProps) => {
     const [newToDoItemDescription, setNewToDoItemDescription] = useState<string>("");
-    const [newToDoItemDate, setNewToDoItemDate] = useState<Date | null | string>(new Date());
+    const [newToDoItemDate, setNewToDoItemDate] = useState<Date | null | string>(null);
     const [newToDoItemPriority, setNewToDoItemPriority] = useState<number>(toDoItemPriority.Low);
     const [shouldShowEmptyErrorText, setShouldShowEmptyErrorText] = useState<boolean>(false);
     const [shouldShowDuplicateErrorText, setShouldShowDuplicateErrorText] = useState<boolean>(false);

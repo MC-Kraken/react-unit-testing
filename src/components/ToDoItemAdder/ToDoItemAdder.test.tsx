@@ -9,19 +9,31 @@ import {toDoItemPriority} from "../../enums/toDoItemPriority";
 describe("ToDoItemAdder", () => {
     it("should allow a user to add a to-do item", async () => {
         const handleAddMock = jest.fn();
-        jest.spyOn(toDoService, "addToDoItem").mockResolvedValue(new Response());
+        let spy = jest.spyOn(toDoService, "addToDoItem").mockResolvedValue(new Response());
         let buttonText = faker.lorem.word();
 
         // Arrange
         render(<ToDoItemAdder buttonText={buttonText} toDoList={createToDoItems(3)} handleAdd={handleAddMock} />);
 
         // Act
-        const input = screen.getByLabelText("todo-input");
-        userEvent.paste(input, faker.lorem.word());
+        const expectedDescription = faker.lorem.word()
+        userEvent.paste(screen.getByLabelText("todo-input"), expectedDescription);
         userEvent.click(screen.getByText(buttonText));
+
+        const dateToPaste = "04/22/1993";
+        const expectedDate = new Date("1993-04-22T07:00:00.000Z");
+        userEvent.paste(screen.getByPlaceholderText("Choose a due date"), dateToPaste)
+
+        userEvent.click(screen.getByRole("button", {name: "Low"}));
+        const testPriority = "High"
+        const expectedPriorityEnumValue = 2;
+        userEvent.click(await screen.findByText(testPriority))
+
+        userEvent.click(screen.getByRole("button", {name: buttonText}))
 
         // Assert
         await waitFor(() => {
+            expect(spy).toHaveBeenCalledWith(expectedDescription, expectedDate, expectedPriorityEnumValue);
             expect(handleAddMock).toHaveBeenCalledTimes(1);
         });
     });

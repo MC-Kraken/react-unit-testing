@@ -31,7 +31,6 @@ export const ToDoList = () => {
 
     function handleEdit() {
         setFetchToDoItems(true);
-        console.log('handleEdit made it alll the way down');
     }
 
     function createGridRows(toDoItems: ToDoItem[]) {
