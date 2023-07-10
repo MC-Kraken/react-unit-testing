@@ -72,7 +72,7 @@ export const ToDoList = () => {
         <>
             <div className={"app-container"}>
                 <h1 className={"header"}>To-Do List</h1>
-                <ToDoItemAdder buttonText={"Add ToDo Item"} toDoList={toDoItems ?? []}
+                <ToDoItemAdder buttonText={"Add To-Do Item"} toDoList={toDoItems ?? []}
                                handleAdd={() => setFetchToDoItems(true)} />
                 {
                     toDoItems.length > 0 ? (

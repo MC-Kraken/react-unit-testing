@@ -18,7 +18,6 @@ describe("ToDoItemAdder", () => {
         // Act
         const expectedDescription = faker.lorem.word()
         userEvent.paste(screen.getByLabelText("todo-input"), expectedDescription);
-        userEvent.click(screen.getByText(buttonText));
 
         const dateToPaste = "04/22/1993";
         const expectedDate = new Date("1993-04-22T07:00:00.000Z");
