@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace Api.Db;
 
 public class Customer

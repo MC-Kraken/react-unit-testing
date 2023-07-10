@@ -13,6 +13,7 @@ namespace Api.Db
         public virtual DbSet<Customer> Customers { get; set; } = default!;
         public virtual DbSet<ItemOrder> ItemOrders { get; set; } = default!;
         public virtual DbSet<CustomerOrder> CustomerOrders { get; set; } = default!;
+        public virtual DbSet<CartItem> CartItems { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

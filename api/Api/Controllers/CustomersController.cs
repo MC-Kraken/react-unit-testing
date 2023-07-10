@@ -6,11 +6,11 @@ namespace Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CustomersControllers : ControllerBase
+    public class CustomersController : ControllerBase
     {
         private readonly ItemsContext _db;
 
-        public CustomersControllers(ItemsContext db) => _db = db;
+        public CustomersController(ItemsContext db) => _db = db;
 
         [HttpGet]
         public IActionResult Get() => Ok(_db.Items.ToList());
