@@ -6,11 +6,11 @@ namespace Api.Controllers;
 
 [ApiController]
     [Route("{customerId:guid}/cart")]
-    public class CarItemsController : ControllerBase
+    public class CartItemsController : ControllerBase
     {
         private readonly ItemsContext _db;
 
-        public CarItemsController(ItemsContext db) => _db = db;
+        public CartItemsController(ItemsContext db) => _db = db;
 
         [HttpPost]
         public IActionResult Post(CartItemAddModel request)

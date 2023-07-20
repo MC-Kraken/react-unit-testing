@@ -7,7 +7,6 @@
         public decimal Price { get; set; }
         public bool Sold { get; set; }
         public Guid StoreId { get; set; }
-        public Guid CustomerId { get; set; }
         public int Stock { get; set; }
     }
 }

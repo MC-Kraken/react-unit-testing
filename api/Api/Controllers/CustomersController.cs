@@ -1,5 +1,6 @@
 ﻿using Api.Db;
 using Api.Models;
+using Api.Models.Cart;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -50,5 +51,22 @@ namespace Api.Controllers
         //
         //         return NoContent();
         //     }
+        
+        [HttpPost("{customerId}/cart")]
+        public IActionResult Post(CartItemAddModel request)
+        {
+            var customerId = RouteData.Values["customerId"]!.ToString();
+            foreach (var item in request.Items)
+            {
+                _db.CartItems.Add(new CartItem
+                {
+                    CustomerId = Guid.Parse(customerId!),
+                    ItemId = item
+                });
+            }
+            _db.SaveChanges();
+            return Created($"/customers/{customerId}/cart", "Items were added to cart");
+        }
     }
+    
 }
