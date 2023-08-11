@@ -19,6 +19,8 @@ public class ToDoItemsController : ControllerBase
     [HttpPost]
     public IActionResult Post(ToDoItemCreateRequest apiRequest)
     {
+        //TODO: Add validation for description not null and due date not in the past
+        
         ToDoItem dbModel = new()
         {
             Description = apiRequest.Description,

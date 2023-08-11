@@ -6,7 +6,7 @@ import React from "react";
 import { ToDoListItemDeleteButton } from "./ToDoListItemDeleteButton";
 import {toDoItemPriority} from "../../enums/toDoItemPriority";
 
-describe("ToDoListItem", () => {
+describe("ToDoListItemDeleteButton", () => {
     it("should allow a user to delete a to-do item", async () => {
         // Arrange
         const item: ToDoItem = { id: Math.random() * 100, description: faker.lorem.word(), dueDate: faker.date.future(), priority: toDoItemPriority.Medium }

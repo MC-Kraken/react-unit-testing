@@ -68,6 +68,21 @@ export const ToDoList = () => {
         },
     ];
 
+    function createGridRowsCompleted(toDoItems: ToDoItem[]) {
+        return toDoItems?.map((toDoItem, index) => {
+            return {
+                id: (index + 1),
+                task: toDoItem.description,
+                dueDate: formatDate(toDoItem.dueDate),
+            }
+        }) as GridRowsProp;
+    }
+
+    const columnsCompleted: GridColDef[] = [
+        { field: 'task', headerName: 'Task', width: 250 },
+        { field: 'dueDate', headerName: 'Due Date', width: 250 },
+    ];
+
     return (
         <>
             <div className={"app-container"}>
@@ -81,6 +96,10 @@ export const ToDoList = () => {
                         <Skeleton variant="rectangular" width={210} height={118} />
                     )
                 }
+                {//TODO: add new service call that fetches completed todos
+                    // on complete, write completed todos to new table. Update service method
+                }
+                <DataGrid autoHeight={true} columns={columnsCompleted} rows={createGridRowsCompleted(toDoItems)} />
             </div>
             <hr />
             <h3>Number of To-Do List items: {toDoItems?.length}</h3>
