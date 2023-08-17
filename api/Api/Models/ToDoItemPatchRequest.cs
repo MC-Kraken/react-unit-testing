@@ -1,4 +1,4 @@
-namespace Api.Controllers.Requests;
+namespace Api.Models;
 
 public class ToDoItemPatchRequest
 {

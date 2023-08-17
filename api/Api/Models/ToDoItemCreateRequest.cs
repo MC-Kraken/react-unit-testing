@@ -1,6 +1,6 @@
 ﻿using Api.Enums;
 
-namespace Api.Controllers.Requests;
+namespace Api.Models;
 
 public class ToDoItemCreateRequest
 {

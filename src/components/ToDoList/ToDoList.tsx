@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
-import { ToDoItem } from "../../services/toDoItem";
-import { getToDoList } from "../../services/toDoService";
+import { ToDoItem } from "../../models/toDoItem";
+import { getCompletedToDoList, getToDoList } from "../../services/toDoService";
 import { ToDoItemAdder } from "../ToDoItemAdder/ToDoItemAdder";
 import '../../styles/components/ToDoList/ToDoList.css';
 import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
 import { Skeleton } from "@mui/material";
-import { ToDoListItemDeleteButton } from "../ToDoListItemDeleteButton/ToDoListItemDeleteButton";
+import { ToDoListItemCompleteButton } from "../ToDoListItemCompleteButton/ToDoListItemCompleteButton";
 import { days, months } from "../../enums/dates";
 import { ToDoListItemEditButton } from "../ToDoListItemEditButton/ToDoListItemEditButton";
+import { CompletedToDoItem } from "../../models/completedToDoItem";
 
 export const ToDoList = () => {
+    // TODO: duplicate setFetchToDoItems for completed items, so they refresh
     const [fetchToDoItems, setFetchToDoItems] = useState<boolean>(true);
     const [toDoItems, setToDoItems] = useState<ToDoItem[]>([]);
+    const [completedToDoItems, setCompletedToDoItems] = useState<CompletedToDoItem[]>([]);
 
     useEffect(() => {
         // TODO: Add loader
@@ -19,6 +22,9 @@ export const ToDoList = () => {
             // TODO: Handle errors
             getToDoList().then(response => {
                 setToDoItems(response);
+            })
+            getCompletedToDoList().then(response => {
+                setCompletedToDoItems(response);
             })
             setFetchToDoItems(false);
         }
@@ -54,8 +60,8 @@ export const ToDoList = () => {
             field: 'delete',
             headerName: '',
             width: 150,
-            renderCell: (params) => <ToDoListItemDeleteButton toDoItem={params.value}
-                                                              handleDelete={() => setFetchToDoItems(true)} />
+            renderCell: (params) => <ToDoListItemCompleteButton toDoItem={params.value}
+                                                                handleComplete={() => setFetchToDoItems(true)} />
         },
         {
             field: 'edit',
@@ -68,12 +74,12 @@ export const ToDoList = () => {
         },
     ];
 
-    function createGridRowsCompleted(toDoItems: ToDoItem[]) {
+    function createGridRowsCompleted(toDoItems: CompletedToDoItem[]) {
         return toDoItems?.map((toDoItem, index) => {
             return {
                 id: (index + 1),
                 task: toDoItem.description,
-                dueDate: formatDate(toDoItem.dueDate),
+                dueDate: toDoItem.completedDate != null ? formatDate(toDoItem.completedDate) : null,
             }
         }) as GridRowsProp;
     }
@@ -96,10 +102,7 @@ export const ToDoList = () => {
                         <Skeleton variant="rectangular" width={210} height={118} />
                     )
                 }
-                {//TODO: add new service call that fetches completed todos
-                    // on complete, write completed todos to new table. Update service method
-                }
-                <DataGrid autoHeight={true} columns={columnsCompleted} rows={createGridRowsCompleted(toDoItems)} />
+                <DataGrid autoHeight={true} columns={columnsCompleted} rows={createGridRowsCompleted(completedToDoItems)} />
             </div>
             <hr />
             <h3>Number of To-Do List items: {toDoItems?.length}</h3>

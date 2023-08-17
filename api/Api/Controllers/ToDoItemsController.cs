@@ -1,5 +1,5 @@
-using Api.Controllers.Requests;
 using Api.Db;
+using Api.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 

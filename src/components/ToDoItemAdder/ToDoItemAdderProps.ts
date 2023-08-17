@@ -1,4 +1,4 @@
-import { ToDoItem } from "../../services/toDoItem";
+import { ToDoItem } from "../../models/toDoItem";
 
 export interface ToDoItemAdderProps {
    toDoList: ToDoItem[];

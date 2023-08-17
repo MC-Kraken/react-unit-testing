@@ -1,9 +1,9 @@
-.delete-button {
+.complete-button {
   background: transparent;
   border: none;
   color: green;
   font-size: 20px;
 }
-.delete-button:hover {
+.complete-button:hover {
   cursor: pointer;
 }

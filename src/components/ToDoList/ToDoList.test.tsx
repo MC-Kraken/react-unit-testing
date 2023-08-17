@@ -3,7 +3,7 @@ import { ToDoList } from "./ToDoList";
 import * as toDoService from "../../services/toDoService";
 import { faker } from "@faker-js/faker";
 import userEvent from "@testing-library/user-event";
-import { ToDoItem } from "../../services/toDoItem";
+import { ToDoItem } from "../../models/toDoItem";
 import { toDoItemPriority } from "../../enums/toDoItemPriority";
 
 describe("ToDoList", () => {

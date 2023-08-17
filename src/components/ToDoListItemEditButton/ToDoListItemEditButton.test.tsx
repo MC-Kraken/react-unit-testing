@@ -1,9 +1,9 @@
-import { ToDoItem } from "../../services/toDoItem";
+import { ToDoItem } from "../../models/toDoItem";
 import faker from "@faker-js/faker";
 import { toDoItemPriority } from "../../enums/toDoItemPriority";
 import * as toDoService from "../../services/toDoService";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { ToDoListItemDeleteButton } from "../ToDoListItemDeleteButton/ToDoListItemDeleteButton";
+import { ToDoListItemCompleteButton } from "../ToDoListItemCompleteButton/ToDoListItemCompleteButton";
 import React from "react";
 import { ToDoListItemEditButton } from "./ToDoListItemEditButton";
 

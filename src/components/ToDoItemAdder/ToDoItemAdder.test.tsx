@@ -2,7 +2,7 @@ import faker from "@faker-js/faker";
 import { render, screen, waitFor } from "@testing-library/react";
 import { ToDoItemAdder } from "./ToDoItemAdder";
 import userEvent from "@testing-library/user-event";
-import { ToDoItem } from "../../services/toDoItem";
+import { ToDoItem } from "../../models/toDoItem";
 import * as toDoService from "../../services/toDoService";
 import {toDoItemPriority} from "../../enums/toDoItemPriority";
 
