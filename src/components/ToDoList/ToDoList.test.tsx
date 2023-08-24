@@ -31,7 +31,9 @@ describe("ToDoList", () => {
                 id: Math.random() * 100,
                 description: expectedNewItem,
                 dueDate: faker.date.future(),
-                priority: toDoItemPriority.Medium
+                priority: toDoItemPriority.Medium,
+                completed: false,
+                completedDate: null
             }]); // when component reloads
         jest.spyOn(toDoService, "addToDoItem").mockResolvedValue(new Response());
 
@@ -184,14 +186,16 @@ describe("ToDoList", () => {
 });
 
 export const createToDoItems = (numberToCreate: number = 3): ToDoItem[] => {
-    let items = [];
+    let items: ToDoItem[] = [];
 
     for (let i = 0; i < numberToCreate; i++) {
         items.push({
             id: i,
             description: faker.lorem.word(),
             dueDate: faker.date.future(),
-            priority: toDoItemPriority.Medium
+            priority: toDoItemPriority.Medium,
+            completed: false,
+            completedDate: null
         })
     }
 

@@ -1,4 +1,4 @@
-import { addCompletedToDoItem, completeToDoItem } from "../../services/toDoService";
+import { completeToDoItem } from "../../services/toDoService";
 import { ToDoListItemCompleteButtonProps } from "./ToDoListItemCompleteButtonProps";
 import "../../styles/components/ToDoListItemDeleteButton/ToDoListItemDeleteButton.css"
 import { ToDoItem } from "../../models/toDoItem";
@@ -12,11 +12,6 @@ export const ToDoListItemCompleteButton = ({ toDoItem, handleComplete }: ToDoLis
                     handleComplete();
                 }
             });
-        addCompletedToDoItem(toDoItem).then((response: Response) => {
-            if (response.ok) {
-                handleComplete();
-            }
-        });
     };
 
     return (

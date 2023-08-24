@@ -3,4 +3,6 @@ export interface ToDoItem {
     description: string;
     dueDate: Date | null;
     priority: any;
+    completed: boolean;
+    completedDate: Date | null;
 }

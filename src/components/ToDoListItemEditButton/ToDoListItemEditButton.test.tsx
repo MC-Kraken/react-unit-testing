@@ -14,7 +14,9 @@ describe("ToDoListItemEditButton", () => {
             id: Math.random() * 100,
             description: faker.lorem.word(),
             dueDate: faker.date.future(),
-            priority: toDoItemPriority.Medium
+            priority: toDoItemPriority.Medium,
+            completed: false,
+            completedDate: null
         }
         jest.spyOn(toDoService, "editToDoItem").mockResolvedValue(new Response());
         const handleEditItemMock = jest.fn();

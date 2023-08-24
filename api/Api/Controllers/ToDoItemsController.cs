@@ -20,12 +20,14 @@ public class ToDoItemsController : ControllerBase
     public IActionResult Post(ToDoItemCreateRequest apiRequest)
     {
         //TODO: Add validation for description not null and due date not in the past
-        
+
         ToDoItem dbModel = new()
         {
             Description = apiRequest.Description,
             DueDate = apiRequest.DueDate,
-            Priority = apiRequest.Priority
+            Priority = apiRequest.Priority,
+            Completed = false,
+            CompletedDate = null
         };
 
         _db.ToDoItems.Add(dbModel);
@@ -37,19 +39,18 @@ public class ToDoItemsController : ControllerBase
     [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {
-        var itemToRemove = _db.ToDoItems.FirstOrDefault(x => x.Id == id);
+        var itemToComplete = _db.ToDoItems.FirstOrDefault(x => x.Id == id);
 
-        if (itemToRemove is null)
+        if (itemToComplete is null)
         {
             return NotFound();
         }
 
-        _db.ToDoItems.Remove(itemToRemove);
         _db.SaveChanges();
 
         return NoContent();
     }
-    
+
     [HttpPatch("{id:int}")]
     public async Task<IActionResult> Patch(int id, [FromBody] JsonPatchDocument<ToDoItem> request)
     {
@@ -59,11 +60,11 @@ public class ToDoItemsController : ControllerBase
         {
             return NotFound("Could not find an item that matched the provided id");
         }
-        
+
         request.ApplyTo(existingItem);
-        
+
         await _db.SaveChangesAsync();
-        
+
         return Ok();
     }
 }
