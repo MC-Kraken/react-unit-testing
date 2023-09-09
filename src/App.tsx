@@ -2,7 +2,7 @@ import { ToDoList } from './components/ToDoList/ToDoList';
 
 function App() {
   return (
-    <ToDoList />
+    <ToDoList disableVirtualization={false} />
   );
 }
 

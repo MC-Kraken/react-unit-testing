@@ -8,8 +8,10 @@ import { Skeleton } from "@mui/material";
 import { ToDoListItemCompleteButton } from "../ToDoListItemCompleteButton/ToDoListItemCompleteButton";
 import { days, months } from "../../enums/dates";
 import { ToDoListItemEditButton } from "../ToDoListItemEditButton/ToDoListItemEditButton";
+import { ToDoListProps } from "./ToDoListProps";
+import { formatDate } from "../../helpers/dateHelpers";
 
-export const ToDoList = () => {
+export const ToDoList = ({ disableVirtualization }: ToDoListProps) => {
     // TODO: duplicate setFetchToDoItems for completed items, so they refresh
     const [fetchToDoItems, setFetchToDoItems] = useState<boolean>(true);
     const [incompleteToDoItems, setIncompleteToDoItems] = useState<ToDoItem[]>([]);
@@ -28,11 +30,6 @@ export const ToDoList = () => {
             setFetchToDoItems(false);
         }
     }, [fetchToDoItems]);
-
-    function formatDate(dueDate: Date | null) {
-        let formattedDate = new Date(dueDate!.toString());
-        return `${days[formattedDate.getDay()]} ${months[formattedDate.getMonth()]} ${formattedDate.getDate()}`;
-    }
 
     function handleEdit() {
         setFetchToDoItems(true);
@@ -78,14 +75,14 @@ export const ToDoList = () => {
             return {
                 id: (index + 1),
                 task: toDoItem.description,
-                dueDate: toDoItem.completedDate != null ? formatDate(toDoItem.completedDate) : null,
+                completedDate: toDoItem.completedDate != null ? formatDate(toDoItem.completedDate) : null,
             }
         }) as GridRowsProp;
     }
 
     const columnsCompleted: GridColDef[] = [
         { field: 'task', headerName: 'Task', width: 250 },
-        { field: 'dueDate', headerName: 'Due Date', width: 250 },
+        { field: 'completedDate', headerName: 'Completed Date', width: 250 },
     ];
 
     return (
@@ -96,12 +93,14 @@ export const ToDoList = () => {
                                handleAdd={() => setFetchToDoItems(true)} />
                 {
                     incompleteToDoItems.length > 0 ? (
-                        <DataGrid autoHeight={true} rows={createGridRows(incompleteToDoItems)} columns={columns} />
+                        <DataGrid autoHeight={true} rows={createGridRows(incompleteToDoItems)} columns={columns}
+                                  disableVirtualization={disableVirtualization} />
                     ) : (
                         <Skeleton variant="rectangular" width={210} height={118} />
                     )
                 }
-                <DataGrid autoHeight={true} columns={columnsCompleted} rows={createGridRowsCompleted(completedToDoItems)} />
+                <DataGrid autoHeight={true} columns={columnsCompleted}
+                          rows={createGridRowsCompleted(completedToDoItems)} />
             </div>
             <hr />
             <h3>Number of To-Do List items: {incompleteToDoItems?.length}</h3>

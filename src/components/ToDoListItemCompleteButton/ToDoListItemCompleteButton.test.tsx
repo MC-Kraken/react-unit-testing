@@ -5,9 +5,10 @@ import * as toDoService from "../../services/toDoService";
 import React from "react";
 import { ToDoListItemCompleteButton } from "./ToDoListItemCompleteButton";
 import { toDoItemPriority } from "../../enums/toDoItemPriority";
+import userEvent from "@testing-library/user-event";
 
 describe("ToDoListItemDeleteButton", () => {
-    it("should allow a user to delete a to-do item", async () => {
+    it("should allow a user to complete a to-do item", async () => {
         // Arrange
         const item: ToDoItem = {
             id: Math.random() * 100,
@@ -18,16 +19,16 @@ describe("ToDoListItemDeleteButton", () => {
             completedDate: null
         }
         jest.spyOn(toDoService, "completeToDoItem").mockResolvedValue(new Response());
-        const handleDeleteItemMock = jest.fn();
+        const handleCompleteItemMock = jest.fn();
 
-        render(<ToDoListItemCompleteButton toDoItem={item} handleComplete={handleDeleteItemMock} />)
+        render(<ToDoListItemCompleteButton toDoItem={item} handleComplete={handleCompleteItemMock} />)
 
         // Act
-        fireEvent.click(screen.getByLabelText(`complete-${item.description}-${item.id}`));
+        userEvent.click(screen.getByLabelText(`complete-${item.description}-${item.id}`));
 
         // Assert
         await waitFor(() => {
-            expect(handleDeleteItemMock).toBeCalledTimes(1);
+            expect(handleCompleteItemMock).toBeCalledTimes(1);
         });
     });
 });
