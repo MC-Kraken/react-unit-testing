@@ -6,7 +6,6 @@ import '../../styles/components/ToDoList/ToDoList.css';
 import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
 import { Skeleton } from "@mui/material";
 import { ToDoListItemCompleteButton } from "../ToDoListItemCompleteButton/ToDoListItemCompleteButton";
-import { days, months } from "../../enums/dates";
 import { ToDoListItemEditButton } from "../ToDoListItemEditButton/ToDoListItemEditButton";
 import { ToDoListProps } from "./ToDoListProps";
 import { formatDate } from "../../helpers/dateHelpers";
@@ -40,7 +39,7 @@ export const ToDoList = ({ disableVirtualization }: ToDoListProps) => {
             return {
                 id: (index + 1),
                 task: toDoItem.description,
-                dueDate: formatDate(toDoItem.dueDate),
+                dueDate: toDoItem.dueDate ? formatDate(toDoItem.dueDate) : "No due date",
                 priority: toDoItem.priority,
                 delete: toDoItem,
                 edit: toDoItem

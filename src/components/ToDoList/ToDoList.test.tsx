@@ -5,7 +5,6 @@ import { faker } from "@faker-js/faker";
 import userEvent from "@testing-library/user-event";
 import { ToDoItem } from "../../models/toDoItem";
 import { toDoItemPriority } from "../../enums/toDoItemPriority";
-import { days, months } from "../../enums/dates";
 import { formatDate } from "../../helpers/dateHelpers";
 
 describe("ToDoList", () => {
@@ -26,12 +25,12 @@ describe("ToDoList", () => {
     // integration test: List component + Add component
     it("should allow the user to add an item", async () => {
         // Arrange
-        const expectedNewItem = faker.lorem.word();
+        const expectedNewItemDescription = faker.lorem.word();
         jest.spyOn(toDoService, "getToDoList")
             .mockResolvedValueOnce([]) // initial load
             .mockResolvedValueOnce([{
                 id: Math.random() * 100,
-                description: expectedNewItem,
+                description: expectedNewItemDescription,
                 dueDate: faker.date.future(),
                 priority: toDoItemPriority.Medium,
                 completed: false,
@@ -43,11 +42,13 @@ describe("ToDoList", () => {
         render(<ToDoList disableVirtualization={false} />);
 
         const input = await screen.findByLabelText("todo-input");
-        userEvent.paste(input, expectedNewItem);
+        userEvent.paste(input, expectedNewItemDescription);
         userEvent.click(screen.getByRole("button", { name: "Add To-Do Item" }));
 
+        // TODO: add interaction with due date and priority inputs?
+
         // Assert
-        expect(await screen.findByText(expectedNewItem)).toBeInTheDocument();
+        expect(await screen.findByText(expectedNewItemDescription)).toBeInTheDocument();
     });
 
     // // integration test: List component + Delete component

@@ -36,21 +36,6 @@ public class ToDoItemsController : ControllerBase
         return Created($"{dbModel.Id}", dbModel);
     }
 
-    [HttpDelete("{id:int}")]
-    public IActionResult Delete(int id)
-    {
-        var itemToComplete = _db.ToDoItems.FirstOrDefault(x => x.Id == id);
-
-        if (itemToComplete is null)
-        {
-            return NotFound();
-        }
-
-        _db.SaveChanges();
-
-        return NoContent();
-    }
-
     [HttpPatch("{id:int}")]
     public async Task<IActionResult> Patch(int id, [FromBody] JsonPatchDocument<ToDoItem> request)
     {

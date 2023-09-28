@@ -7,7 +7,7 @@ import { ToDoListItemCompleteButton } from "./ToDoListItemCompleteButton";
 import { toDoItemPriority } from "../../enums/toDoItemPriority";
 import userEvent from "@testing-library/user-event";
 
-describe("ToDoListItemDeleteButton", () => {
+describe("ToDoListItemCompleteButton", () => {
     it("should allow a user to complete a to-do item", async () => {
         // Arrange
         const item: ToDoItem = {
