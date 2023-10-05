@@ -9,6 +9,7 @@ import { ToDoListItemCompleteButton } from "../ToDoListItemCompleteButton/ToDoLi
 import { ToDoListItemEditButton } from "../ToDoListItemEditButton/ToDoListItemEditButton";
 import { ToDoListProps } from "./ToDoListProps";
 import { formatDate } from "../../helpers/dateHelpers";
+import { toDoItemPriority } from "../../enums/toDoItemPriority";
 
 export const ToDoList = ({ disableVirtualization }: ToDoListProps) => {
     // TODO: duplicate setFetchToDoItems for completed items, so they refresh
@@ -62,7 +63,7 @@ export const ToDoList = ({ disableVirtualization }: ToDoListProps) => {
             field: 'edit',
             headerName: '',
             width: 150,
-            renderCell: (params) => <ToDoListItemEditButton id={params.value.id} priority={params.value.priority}
+            renderCell: (params) => <ToDoListItemEditButton id={params.value.id} priority={toDoItemPriority[params.value.priority]}
                                                             description={params.value.description}
                                                             dueDate={params.value.dueDate}
                                                             handleEdit={() => handleEdit()} />
